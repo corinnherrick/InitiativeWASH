@@ -194,6 +194,8 @@ INSTALLED_APPS = (
     "django_tables2",
     "selectable",
     "south",
+    # Project apps
+    "gateway",
     # RapidSMS
     "rapidsms",
     "rapidsms.backends.database",

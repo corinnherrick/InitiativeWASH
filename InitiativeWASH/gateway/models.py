@@ -58,5 +58,5 @@ class TestResult(models.Model):
     test = models.ForeignKey('Test')
     value = models.FloatField()
     source = models.ForeignKey('Source')
-    timestamp = models.DateField(auto_new_add=True)
+    timestamp = models.DateField(auto_now_add=True)
 
