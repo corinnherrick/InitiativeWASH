@@ -203,6 +203,9 @@ INSTALLED_APPS = (
     "rapidsms.contrib.messaging",
     "rapidsms.contrib.registration",
     "rapidsms.contrib.echo",
+    #INSTALLS THE FOLLOWING
+    "gateway",
+    #########
     "rapidsms.contrib.default",  # Must be last
 )
 
@@ -217,4 +220,5 @@ LOGIN_REDIRECT_URL = '/'
 RAPIDSMS_HANDLERS = (
     'rapidsms.contrib.echo.handlers.echo.EchoHandler',
     'rapidsms.contrib.echo.handlers.ping.PingHandler',
+    "gateway.handlers.EquationHandler",
 )
