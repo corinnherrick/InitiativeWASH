@@ -1,4 +1,5 @@
 from django.db import models
+import math
 
 class Neighborhood(models.Model):
     """ Corresponds to a neighborhood that the system will recognize.
@@ -36,8 +37,64 @@ class Source(models.Model):
         (PRIVATE_WELL, 'Private Well'),
     )
     type = models.CharField(max_length=2, choices=TYPE_CHOICES)
+
+
+    ##### GENERAL FUNCTIONS FOR BOTH TURBIDITY AND FECAL##########
+    def xtoy(x,x0,x1,y0,y1):
+        m=(y1-y0)/(x1-x0)
+        return (y0+m*(x-x0))
+
+    def dattowqi(dat,length,xarray,yarray):
+        found = False
+        i = 0
+        while ((i < length) and (not found)):
+            if ((xarray[i] <= dat) and (dat <= xarray[i+1]) and (not found)):
+                found = True
+            i += 1
+
+        if found:
+            i -= 1
+            return (xtoy(dat,xarray[i],xarray[i+1],yarray[i],yarray[i+1]))
+
+        return 100
+    #################################################################
+
+    # FUNCTION FOR FECAL COLIFORM
+    def calcfcwqi(input):
+        inval = float(input)
+        xarray = [0.0, 2.0, 3.0, 4.0,5.0]
+        yarray = [99.0,44.0,22.0,10.0,4.0]
+        cnt = 5
+        if (inval < 1):
+            outval = "Out of Range"
+        else:
+
+            if (inval > 100000):
+                outval = 2
+            else:
+                outval=round(dattowqi((math.log(inval)/math.log(10)),cnt,xarray,yarray))
+        return outval
+
+    #FUNCTION FOR TURBIDITY
+    def calcturbwqi(input):
+        inval = float(input)
+        xarray = [0.0, 3.0, 8.0,13.0,15.0,20.0,30.0,40.0,50.0,60.0,70.0,80.0,90.0,100.0]
+        yarray = [99.0,90.0,80.0,70.0,67.0,61.0,53.0,45.0,39.0,33.0,29.0,25.0,22.0, 17.0]
+        cnt = 14
+        if (inval < 0):
+            outval = "Out of range"
+        else:
+            if (100 < inval):
+                outval = 5
+            else:
+                outval = round(dattowqi(inval,cnt,xarray,yarray))
+        return outval
+
     def water_quality():
+
+
         """Returns the water quality score depending on the test results"""
+
         pass
 
 class Test(models.Model):
@@ -47,6 +104,7 @@ class Test(models.Model):
     """
     name = models.CharField(max_length=80)
     weight = models.FloatField()
+    # Q_Value = models.FloatField()
 
 class TestResult(models.Model):
     """ Corresponds to a single test run on a water source.
@@ -58,5 +116,4 @@ class TestResult(models.Model):
     test = models.ForeignKey('Test')
     value = models.FloatField()
     source = models.ForeignKey('Source')
-    timestamp = models.DateField(auto_new_add=True)
-
+    # timestamp = models.DateField(auto_new_add=True)
