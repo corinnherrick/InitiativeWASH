@@ -1,6 +1,13 @@
 # Django settings for InitiativeWASH project.
 
 import os
+# import djcelery
+# djcelery.setup_loader()
+# BROKEN_URL = 'django://'
+
+#DATABASE ROUTER
+# RAPIDSMS_ROUTER = "rapidsms.router.db.DatabaseRouter"
+##############
 
 # The top directory for this project. Contains requirements/, manage.py,
 # and README.rst, a InitiativeWASH directory with settings etc (see
@@ -206,6 +213,13 @@ INSTALLED_APPS = (
     "rapidsms.contrib.registration",
     "rapidsms.contrib.echo",
     #INSTALLS THE FOLLOWING
+    #Celery and djcelery
+    # "djcelery",
+    # "kombu.transport.django",
+    # "rapidsms.router.celery",
+    #DatabaseRouter
+    # "rapidsms.router.db",
+    #DIRECTORY GATEWAY
     "gateway",
     #########
     "rapidsms.contrib.default",  # Must be last
@@ -214,8 +228,20 @@ INSTALLED_APPS = (
 INSTALLED_BACKENDS = {
     "message_tester": {
         "ENGINE": "rapidsms.backends.database.DatabaseBackend",
+        # "router.celery.eager": True,
     },
 }
+
+###########LOGGING################
+# LOGGING_CONFIG = {
+#     "rapidsms.router.celery":{
+#         'handlers':['file'],
+#         'level': DEBUG,
+#     }
+# }
+###################################
+
+
 
 LOGIN_REDIRECT_URL = '/'
 
