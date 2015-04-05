@@ -11,7 +11,8 @@ class Neighborhood(models.Model):
     radius_to_search = models.IntegerField()
     lattitude = models.FloatField()
     longitude = models.FloatField()
-    
+    def __str__(self):
+        return self.name
 
 class Source(models.Model):
     """ Corresponds to a source of water.
@@ -36,9 +37,11 @@ class Source(models.Model):
         (PRIVATE_WELL, 'Private Well'),
     )
     type = models.CharField(max_length=2, choices=TYPE_CHOICES)
-    def water_quality():
+    def water_quality(self):
         """Returns the water quality score depending on the test results"""
         pass
+    def __str__(self):
+        return self.type + str(self.id)
 
 class Test(models.Model):
     """ Corresponds to a test that community members can perform on a water source.
@@ -47,6 +50,8 @@ class Test(models.Model):
     """
     name = models.CharField(max_length=80)
     weight = models.FloatField()
+    def __str__(self):
+        return self.name
 
 class TestResult(models.Model):
     """ Corresponds to a single test run on a water source.
@@ -59,4 +64,6 @@ class TestResult(models.Model):
     value = models.FloatField()
     source = models.ForeignKey('Source')
     timestamp = models.DateField(auto_now_add=True)
+    def __str__(self):
+        return str(self.test) + " for " + str(self.source)
 
