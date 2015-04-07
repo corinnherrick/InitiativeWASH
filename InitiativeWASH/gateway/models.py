@@ -12,6 +12,21 @@ class Neighborhood(models.Model):
     radius_to_search = models.IntegerField()
     lattitude = models.FloatField()
     longitude = models.FloatField()
+    def distance_to(self, lattitude, longitude):
+        """Get the distance from this neighborhood to a lat lon point (eg a water source).
+           Uses the haversine formula.
+        """
+        lat1 = math.radians(self.lattitude)
+        lat2 = math.radians(lattitude)
+        lon1 = math.radians(self.longitude)
+        lon2 = math.radians(longitude)
+        delta_lattitude = lat2 - lat1
+        delta_longitude = lon2 - lon1
+        a = (math.sin(delta_lattitude/2.0))**2 + math.cos(lat1)*math.cos(lat2)*(math.sin(delta_longitude))**2 
+        c = 2.0 * math.atan2(math.sqrt(a), math.sqrt(1.0-a))
+        earth_radius = 6371000.0
+        return earth_radius * c
+
     def __str__(self):
         return self.name
 
