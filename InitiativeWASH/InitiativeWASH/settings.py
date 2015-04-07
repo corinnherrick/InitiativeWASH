@@ -246,9 +246,7 @@ INSTALLED_BACKENDS = {
 LOGIN_REDIRECT_URL = '/'
 
 RAPIDSMS_HANDLERS = (
-    'rapidsms.contrib.echo.handlers.echo.EchoHandler',
-#    'rapidsms.contrib.echo.handlers.ping.PingHandler',
-    "gateway.handlers.EquationHandler",
+    'gateway.handlers.DataHandler',
 )
 
 DEFAULT_RESPONSE = "Sorry, we didn't understand your message. Please try again."
