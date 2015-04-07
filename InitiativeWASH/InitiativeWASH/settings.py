@@ -211,7 +211,7 @@ INSTALLED_APPS = (
     "rapidsms.contrib.messagelog",
     "rapidsms.contrib.messaging",
     "rapidsms.contrib.registration",
-    "rapidsms.contrib.echo",
+#    "rapidsms.contrib.echo",
     #INSTALLS THE FOLLOWING
     #Celery and djcelery
     # "djcelery",
@@ -247,6 +247,8 @@ LOGIN_REDIRECT_URL = '/'
 
 RAPIDSMS_HANDLERS = (
     'rapidsms.contrib.echo.handlers.echo.EchoHandler',
-    'rapidsms.contrib.echo.handlers.ping.PingHandler',
+#    'rapidsms.contrib.echo.handlers.ping.PingHandler',
     "gateway.handlers.EquationHandler",
 )
+
+DEFAULT_RESPONSE = "Sorry, we didn't understand your message. Please try again."
