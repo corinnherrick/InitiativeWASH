@@ -1,4 +1,4 @@
 Django>=1.5,<1.6
-RapidSMS==0.16.0
+RapidSMS==0.14.0
 South==0.7.6
-Celery>=3.0 
+rapidsms-tropo>=0.2.0

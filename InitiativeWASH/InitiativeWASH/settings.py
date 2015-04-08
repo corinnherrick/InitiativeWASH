@@ -221,6 +221,8 @@ INSTALLED_APPS = (
     # "rapidsms.router.db",
     #DIRECTORY GATEWAY
     "gateway",
+    #TROPO
+    'rtropo',
     #########
     "rapidsms.contrib.default",  # Must be last
 )
@@ -229,6 +231,15 @@ INSTALLED_BACKENDS = {
     "message_tester": {
         "ENGINE": "rapidsms.backends.database.DatabaseBackend",
         # "router.celery.eager": True,
+    },
+    "my-tropo-backend": {
+        "ENGINE": "rtropo.outgoing.TropoBackend",
+        'config': {
+            # Your Tropo application's outbound token for messaging
+            'messaging_token': '07d15cd1cbb0ba47a68f05b57f43358be8d9e9c4efe70c368b09e16719fba8c58fa1b15561a3f5f44feb6793',
+            # Your Tropo application's voice/messaging phone number (including country code)
+            'number': '+1-857-239-0091',
+        },
     },
 }
 
