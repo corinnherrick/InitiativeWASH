@@ -55,11 +55,11 @@ class Source(models.Model):
     type = models.CharField(max_length=2, choices=TYPE_CHOICES)
 
     ##### GENERAL FUNCTIONS FOR BOTH TURBIDITY AND FECAL##########
-    def xtoy(x,x0,x1,y0,y1):
+    def xtoy(self, x,x0,x1,y0,y1):
         m=(y1-y0)/(x1-x0)
         return (y0+m*(x-x0))
 
-    def dattowqi(dat,length,xarray,yarray):
+    def dattowqi(self, dat,length,xarray,yarray):
         found = False
         i = 0
         while ((i < length) and (not found)):
@@ -69,13 +69,13 @@ class Source(models.Model):
 
         if found:
             i -= 1
-            return (xtoy(dat,xarray[i],xarray[i+1],yarray[i],yarray[i+1]))
+            return (self.xtoy(dat,xarray[i],xarray[i+1],yarray[i],yarray[i+1]))
 
         return 100
     #################################################################
 
     # FUNCTION FOR FECAL COLIFORM
-    def calcfcwqi(input):
+    def calcfcwqi(self, input):
         inval = float(input)
         xarray = [0.0, 2.0, 3.0, 4.0,5.0]
         yarray = [99.0,44.0,22.0,10.0,4.0]
@@ -87,11 +87,11 @@ class Source(models.Model):
             if (inval > 100000):
                 outval = 2
             else:
-                outval=round(dattowqi((math.log(inval)/math.log(10)),cnt,xarray,yarray))
+                outval=round(self.dattowqi((math.log(inval)/math.log(10)),cnt,xarray,yarray))
         return outval
 
     #FUNCTION FOR TURBIDITY
-    def calcturbwqi(input):
+    def calcturbwqi(self, input):
         inval = float(input)
         xarray = [0.0, 3.0, 8.0,13.0,15.0,20.0,30.0,40.0,50.0,60.0,70.0,80.0,90.0,100.0]
         yarray = [99.0,90.0,80.0,70.0,67.0,61.0,53.0,45.0,39.0,33.0,29.0,25.0,22.0, 17.0]
@@ -102,13 +102,15 @@ class Source(models.Model):
             if (100 < inval):
                 outval = 5
             else:
-                outval = round(dattowqi(inval,cnt,xarray,yarray))
+                outval = round(self.dattowqi(inval,cnt,xarray,yarray))
         return outval
 
-    def water_quality():
+    def water_quality(self):
         """Returns the water quality score depending on the test results"""
+        fc_result = TestResult.objects.filter(test__name="Fecal Coliform", source=self).order_by("-timestamp")[0]
+        turbidity_result = TestResult.objects.filter(test__name="Turbidity", source=self).order_by("-timestamp")[0]
+        return self.calcturbwqi(turbidity_result.value) * turbidity_result.test.weight + self.calcfcwqi(fc_result.value) * fc_result.test.weight
 
-        pass
     def __str__(self):
         return self.type + str(self.id)
 

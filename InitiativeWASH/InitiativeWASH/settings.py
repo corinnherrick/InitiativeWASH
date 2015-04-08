@@ -247,6 +247,7 @@ LOGIN_REDIRECT_URL = '/'
 
 RAPIDSMS_HANDLERS = (
     'gateway.handlers.DataHandler',
+    'gateway.handlers.NeighborhoodHandler',
 )
 
 DEFAULT_RESPONSE = "Sorry, we didn't understand your message. Please try again."
