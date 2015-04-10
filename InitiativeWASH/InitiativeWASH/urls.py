@@ -2,7 +2,7 @@ from django.conf import settings
 from django.conf.urls import patterns, include, url
 from django.conf.urls.static import static
 from django.contrib import admin
-from rtropo.views import message_received
+from rtwilio.views import TwilioBackendView
 
 admin.autodiscover()
 
@@ -18,8 +18,14 @@ urlpatterns = patterns('',
     (r'^messaging/', include('rapidsms.contrib.messaging.urls')),
     (r'^registration/', include('rapidsms.contrib.registration.urls')),
 
+    #TWILIO
+    url(r"^backend/twilio/$",
+        TwilioBackendView.as_view(backend_name="twilio-backend")),
+    url(r'^backend/twilio/status-callback/$', status_callback,
+        name='twilio-status-callback'),
+
     #TROPO
-    url(r'^tropo/', message_received, kwargs={'backend_name': 'my-tropo-backend'}),
+    # url(r'^tropo/', message_received, kwargs={'backend_name': 'my-tropo-backend'}, name='tropo'),
 
     # Third party URLs
     (r'^selectable/', include('selectable.urls')),

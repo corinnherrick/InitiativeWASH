@@ -222,7 +222,9 @@ INSTALLED_APPS = (
     #DIRECTORY GATEWAY
     "gateway",
     #TROPO
-    'rtropo',
+    # 'rtropo',
+    #TWILIO
+    "rtwilio",
     #########
     "rapidsms.contrib.default",  # Must be last
 )
@@ -232,15 +234,25 @@ INSTALLED_BACKENDS = {
         "ENGINE": "rapidsms.backends.database.DatabaseBackend",
         # "router.celery.eager": True,
     },
-    "my-tropo-backend": {
-        "ENGINE": "rtropo.outgoing.TropoBackend",
+    "twilio-backend": {
+        "ENGINE": "rtwilio.outgoing.TwilioBackend",
         'config': {
-            # Your Tropo application's outbound token for messaging
-            'messaging_token': '07d15cd1cbb0ba47a68f05b57f43358be8d9e9c4efe70c368b09e16719fba8c58fa1b15561a3f5f44feb6793',
-            # Your Tropo application's voice/messaging phone number (including country code)
-            'number': '+1-857-239-0091',
-        },
+            'account_sid': 'AC8155be9cc294a5aebd5737e7e87058e0',  # (required)
+            'auth_token': '7476383ef820d9cbaada64b495435131',  # (required)
+            'number': '(323) 909-4972',  # your Twilio phone number (required)
+            'callback': 'http://herrickc.scripts.mit.edu/wash/backend/twilio/status-callback/',  # optional callback URL
+            # +13239094972
+        }
     },
+    # "my-tropo-backend": {
+    #     "ENGINE": "rtropo.outgoing.TropoBackend",
+    #     'config': {
+    #         # Your Tropo application's outbound token for messaging
+    #         'messaging_token': '07d15cd1cbb0ba47a68f05b57f43358be8d9e9c4efe70c368b09e16719fba8c58fa1b15561a3f5f44feb6793',
+    #         # Your Tropo application's voice/messaging phone number (including country code)
+    #         'number': '+1-857-239-0091',
+    #     },
+    # },
 }
 
 ###########LOGGING################
