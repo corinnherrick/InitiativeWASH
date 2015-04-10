@@ -19,10 +19,8 @@ urlpatterns = patterns('',
     (r'^registration/', include('rapidsms.contrib.registration.urls')),
 
     #TWILIO
-    url(r"^backend/twilio/$",
-        TwilioBackendView.as_view(backend_name="twilio-backend")),
-    url(r'^backend/twilio/status-callback/$', status_callback,
-        name='twilio-status-callback'),
+    url(r"^backend/twilio/$", TwilioBackendView.as_view(backend_name="twilio-backend")),
+    # url(r'^backend/twilio/status-callback/$', status_callback, name='twilio-status-callback'),
 
     #TROPO
     # url(r'^tropo/', message_received, kwargs={'backend_name': 'my-tropo-backend'}, name='tropo'),

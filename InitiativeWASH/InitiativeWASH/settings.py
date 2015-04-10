@@ -240,7 +240,7 @@ INSTALLED_BACKENDS = {
             'account_sid': 'AC8155be9cc294a5aebd5737e7e87058e0',  # (required)
             'auth_token': '7476383ef820d9cbaada64b495435131',  # (required)
             'number': '(323) 909-4972',  # your Twilio phone number (required)
-            'callback': 'http://herrickc.scripts.mit.edu/wash/backend/twilio/status-callback/',  # optional callback URL
+            # 'callback': 'http://herrickc.scripts.mit.edu/wash/backend/twilio/status-callback/',  # optional callback URL
             # +13239094972
         }
     },
