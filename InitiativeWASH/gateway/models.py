@@ -54,62 +54,42 @@ class Source(models.Model):
     )
     type = models.CharField(max_length=2, choices=TYPE_CHOICES)
 
-    ##### GENERAL FUNCTIONS FOR BOTH TURBIDITY AND FECAL##########
-    def xtoy(self, x,x0,x1,y0,y1):
-        m=(y1-y0)/(x1-x0)
-        return (y0+m*(x-x0))
-
-    def dattowqi(self, dat,length,xarray,yarray):
-        found = False
-        i = 0
-        while ((i < length) and (not found)):
-            if ((xarray[i] <= dat) and (dat <= xarray[i+1]) and (not found)):
-                found = True
-            i += 1
-
-        if found:
-            i -= 1
-            return (self.xtoy(dat,xarray[i],xarray[i+1],yarray[i],yarray[i+1]))
-
-        return 100
-    #################################################################
-
-    # FUNCTION FOR FECAL COLIFORM
-    def calcfcwqi(self, input):
-        inval = float(input)
-        xarray = [0.0, 2.0, 3.0, 4.0,5.0]
-        yarray = [99.0,44.0,22.0,10.0,4.0]
-        cnt = 5
-        if (inval < 1):
-            outval = "Out of Range"
+    # test result -> wqi curves
+    fecal_coliform_curve = {0.0: 99.0, 2.0: 44.0, 3.0: 22.0, 4.0: 10.0, 5.0: 4.0}
+    turbidity_curve = {0.0: 99.0, 3.0: 90.0, 8.0: 80.0, 13.0: 70.0, 15.0: 67.0, 
+                       20.0: 61.0, 30.0: 53.0, 40.0: 45.0, 50.0: 39.0, 60.0: 33.0, 
+                       70.0: 29.0, 80.0: 25.0, 90.0: 22.0, 100.0: 17.0}
+    def compute_wqi(self, curve_dict, test_result):
+        # Get the closest test result value for which we have a wqi
+        vals_below = filter(lambda k: k<=test_result, curve_dict.keys())
+        vals_above = filter(lambda k: k<=test_result, curve_dict.keys())
+        if len(vals_below) == 0:
+            return 100
+        if len(vals_above) == 0:
+            return 0
+        nearest_val_below = min(vals_below, key=lambda k: abs(k-test_result))
+        nearest_val_above = min(vals_above, key=lambda k: abs(k-test_result))
+        wqi_below = curve_dict[nearest_val_below]
+        wqi_above = curve_dict[nearest_val_above]
+        if nearest_val_below == nearest_val_above:
+            return wqi_below
         else:
-
-            if (inval > 100000):
-                outval = 2
-            else:
-                outval=round(self.dattowqi((math.log(inval)/math.log(10)),cnt,xarray,yarray))
-        return outval
-
-    #FUNCTION FOR TURBIDITY
-    def calcturbwqi(self, input):
-        inval = float(input)
-        xarray = [0.0, 3.0, 8.0,13.0,15.0,20.0,30.0,40.0,50.0,60.0,70.0,80.0,90.0,100.0]
-        yarray = [99.0,90.0,80.0,70.0,67.0,61.0,53.0,45.0,39.0,33.0,29.0,25.0,22.0, 17.0]
-        cnt = 14
-        if (inval < 0):
-            outval = "Out of range"
-        else:
-            if (100 < inval):
-                outval = 5
-            else:
-                outval = round(self.dattowqi(inval,cnt,xarray,yarray))
-        return outval
+            slope = (wqi_above - wqi_below)/(nearest_val_above - nearest_val_below)
+            return wqi_below + slope*(test_result - nearest_val_below)
 
     def water_quality(self):
         """Returns the water quality score depending on the test results"""
         fc_result = TestResult.objects.filter(test__name="Fecal Coliform", source=self).order_by("-timestamp")[0]
         turbidity_result = TestResult.objects.filter(test__name="Turbidity", source=self).order_by("-timestamp")[0]
-        return self.calcturbwqi(turbidity_result.value) * turbidity_result.test.weight + self.calcfcwqi(fc_result.value) * fc_result.test.weight
+
+        # log the fc_result value
+        fc_value = 100
+        if fc_result.value >= 1.0:
+            fc_value = math.log(fc_result.value)/math.log(10)
+        fc_wqi = self.compute_wqi(Source.fecal_coliform_curve, fc_value)
+        turb_wqi = self.compute_wqi(Source.turbidity_curve, turbidity_result.value)
+        return fc_wqi*fc_result.test.weight + turb_wqi*turbidity_result.test.weight
+        
 
     def __str__(self):
         return self.type + str(self.id)
