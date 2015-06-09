@@ -249,7 +249,7 @@ INSTALLED_BACKENDS = {
       "ENGINE": "rapidsms_telerivet.outgoing.TelerivetBackend",
       "project_id": "PJ7857fe403c2fa575",
       "phone_id": "PNcc002e02c198bd4f",
-      "secret": "http://herrickc.scripts.mit.edu/wash/telerivet/",
+      "secret": "9FT4PNWCMUZ7ZCRA96EPLKZW3ZPZFDFP",
       "api_key": "FTntIwlTyAJKmBJVVqp5XVFbrMMGaUIn"
   },
 

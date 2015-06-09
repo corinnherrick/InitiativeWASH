@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6376f323-cde5-44db-97e4-1a41efc9c6f4" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/InitiativeWASH/InitiativeWASH/urls.py" afterPath="$PROJECT_DIR$/InitiativeWASH/InitiativeWASH/urls.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/InitiativeWASH/InitiativeWASH/settings.py" afterPath="$PROJECT_DIR$/InitiativeWASH/InitiativeWASH/settings.py" />
     </list>
     <ignored path="InitiativeWASH.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -30,11 +30,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/InitiativeWASH/InitiativeWASH/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="3913" max-vertical-offset="4947">
-              <caret line="258" column="4" selection-start-line="258" selection-start-column="4" selection-end-line="258" selection-end-column="4" />
+            <state vertical-scroll-proportion="0.530572" vertical-offset="4015" max-vertical-offset="4947">
+              <caret line="252" column="47" selection-start-line="252" selection-start-column="47" selection-end-line="252" selection-end-column="47" />
               <folding />
             </state>
           </provider>
@@ -50,11 +50,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="urls.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/InitiativeWASH/InitiativeWASH/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.30177516" vertical-offset="0" max-vertical-offset="680">
-              <caret line="9" column="26" selection-start-line="9" selection-start-column="26" selection-end-line="9" selection-end-column="26" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="105" max-vertical-offset="680">
+              <caret line="25" column="9" selection-start-line="25" selection-start-column="9" selection-end-line="25" selection-end-column="9" />
               <folding>
                 <element signature="e#0#32#0" expanded="true" />
               </folding>
@@ -138,9 +138,9 @@
         <option value="$PROJECT_DIR$/InitiativeWASH/InitiativeWASH/celery.py" />
         <option value="$PROJECT_DIR$/InitiativeWASH/gateway/models.py" />
         <option value="$PROJECT_DIR$/InitiativeWASH/gateway/handlers.py" />
-        <option value="$PROJECT_DIR$/InitiativeWASH/InitiativeWASH/settings.py" />
         <option value="$PROJECT_DIR$/InitiativeWASH/requirements/base.txt" />
         <option value="$PROJECT_DIR$/InitiativeWASH/InitiativeWASH/urls.py" />
+        <option value="$PROJECT_DIR$/InitiativeWASH/InitiativeWASH/settings.py" />
       </list>
     </option>
   </component>
@@ -906,21 +906,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/InitiativeWASH/InitiativeWASH/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="3913" max-vertical-offset="4947">
-          <caret line="258" column="4" selection-start-line="258" selection-start-column="4" selection-end-line="258" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/InitiativeWASH/InitiativeWASH/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.30177516" vertical-offset="0" max-vertical-offset="680">
-          <caret line="9" column="26" selection-start-line="9" selection-start-column="26" selection-end-line="9" selection-end-column="26" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="105" max-vertical-offset="680">
+          <caret line="25" column="9" selection-start-line="25" selection-start-column="9" selection-end-line="25" selection-end-column="9" />
           <folding>
             <element signature="e#0#32#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/InitiativeWASH/InitiativeWASH/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.530572" vertical-offset="4015" max-vertical-offset="4947">
+          <caret line="252" column="47" selection-start-line="252" selection-start-column="47" selection-end-line="252" selection-end-column="47" />
+          <folding />
         </state>
       </provider>
     </entry>
