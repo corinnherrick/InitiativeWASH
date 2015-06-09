@@ -234,16 +234,25 @@ INSTALLED_BACKENDS = {
         "ENGINE": "rapidsms.backends.database.DatabaseBackend",
         # "router.celery.eager": True,
     },
-    "twilio-backend": {
-        "ENGINE": "rtwilio.outgoing.TwilioBackend",
-        'config': {
-            'account_sid': 'AC8155be9cc294a5aebd5737e7e87058e0',  # (required)
-            'auth_token': '7476383ef820d9cbaada64b495435131',  # (required)
-            'number': '(323) 909-4972',  # your Twilio phone number (required)
-            # 'callback': 'http://herrickc.scripts.mit.edu/wash/backend/twilio/status-callback/',  # optional callback URL
-            # +13239094972
-        }
-    },
+    # # "twilio-backend": {
+    # #     "ENGINE": "rtwilio.outgoing.TwilioBackend",
+    # #     'config': {
+    # #         'account_sid': 'AC8155be9cc294a5aebd5737e7e87058e0',  # (required)
+    # #         'auth_token': '7476383ef820d9cbaada64b495435131',  # (required)
+    # #         'number': '(323) 909-4972',  # your Twilio phone number (required)
+    # #         # 'callback': 'http://herrickc.scripts.mit.edu/wash/backend/twilio/status-callback/',  # optional callback URL
+    # #         # +13239094972
+    # #     }
+    # },
+
+    "telerivet": {
+      "ENGINE": "rapidsms_telerivet.outgoing.TelerivetBackend",
+      "project_id": "PJ7857fe403c2fa575",
+      "phone_id": "PNcc002e02c198bd4f",
+      "secret": "http://herrickc.scripts.mit.edu/wash/telerivet/",
+      "api_key": "FTntIwlTyAJKmBJVVqp5XVFbrMMGaUIn"
+  },
+
     # "my-tropo-backend": {
     #     "ENGINE": "rtropo.outgoing.TropoBackend",
     #     'config': {

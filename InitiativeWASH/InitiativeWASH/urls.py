@@ -3,6 +3,7 @@ from django.conf.urls import patterns, include, url
 from django.conf.urls.static import static
 from django.contrib import admin
 from rtwilio.views import TwilioBackendView
+from rapidsms_telerivet.views import TelerivetBackendView
 
 admin.autodiscover()
 
@@ -18,8 +19,11 @@ urlpatterns = patterns('',
     (r'^messaging/', include('rapidsms.contrib.messaging.urls')),
     (r'^registration/', include('rapidsms.contrib.registration.urls')),
 
+    #TELERIVET
+    (r'^telerivet/', TelerivetBackendView.as_view(backend_name='telerivet')),
+
     #TWILIO
-    url(r"^backend/twilio/$", TwilioBackendView.as_view(backend_name="twilio-backend")),
+    # url(r"^backend/twilio/$", TwilioBackendView.as_view(backend_name="twilio-backend")),
     # url(r'^backend/twilio/status-callback/$', status_callback, name='twilio-status-callback'),
 
     #TROPO
